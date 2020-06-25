@@ -10,19 +10,15 @@ import javax.persistence.OneToOne;
 @Entity
 public class Category {
     @Id
-    int id;
-    String category;
-
-    @OneToOne
-    SubCategory subCategory;
+    private int id;
+    private String category;
 
     public Category() {
     }
 
-    public Category(int id, String category, SubCategory subCategory) {
+    public Category(int id, String category) {
         this.id = id;
         this.category = category;
-        this.subCategory = subCategory;
     }
 
     public int getId() {
@@ -41,11 +37,4 @@ public class Category {
         this.category = category;
     }
 
-    public SubCategory getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(SubCategory subCategory) {
-        this.subCategory = subCategory;
-    }
 }

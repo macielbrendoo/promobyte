@@ -4,21 +4,25 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @EnableAutoConfiguration
 @Entity
 public class SubCategory {
     @Id
-    int id;
-    int categoryId;
-    String subCategory;
+    private int id;
+    private String subCategory;
+
+    @ManyToOne
+    private Category category;
 
     public SubCategory() {
     }
 
-    public SubCategory(int id, int categoryId, String subCategory) {
+    public SubCategory(int id, Category category, String subCategory) {
         this.id = id;
-        this.categoryId = categoryId;
+        this.category = category;
         this.subCategory = subCategory;
     }
 
@@ -30,12 +34,12 @@ public class SubCategory {
         this.id = id;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getSubCategory() {

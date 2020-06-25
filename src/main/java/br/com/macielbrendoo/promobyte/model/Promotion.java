@@ -13,23 +13,25 @@ import java.util.Date;
 @Entity
 public class Promotion {
     @Id
-    int id;
+    private int id;
+
+    private boolean approvedStatus;
+    private String product;
+    private BigDecimal originalPrice;
+    private BigDecimal actualPrice;
+    private String url;
+    private String promotionCode;
+    private Date expirationDate;
+    private Date createAt;
+    private int ownerId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    SubCategory subCategory;
-
-    boolean approvedStatus;
-    String product;
-    BigDecimal originalPrice;
-    BigDecimal actualPrice;
-    String url;
-    String promotionCode;
-    Date expirationDate;
+    private SubCategory subCategory;
 
     public Promotion() {
     }
 
-    public Promotion(int id, SubCategory subCategory, boolean approvedStatus, String product, BigDecimal originalPrice, BigDecimal actualPrice, String url, String promotionCode, Date expirationDate) {
+    public Promotion(int id, SubCategory subCategory, boolean approvedStatus, String product, BigDecimal originalPrice, BigDecimal actualPrice, String url, String promotionCode, Date expirationDate, Date createAt, int ownerId) {
         this.id = id;
         this.subCategory = subCategory;
         this.approvedStatus = approvedStatus;
@@ -39,6 +41,8 @@ public class Promotion {
         this.url = url;
         this.promotionCode = promotionCode;
         this.expirationDate = expirationDate;
+        this.createAt = createAt;
+        this.ownerId = ownerId;
     }
 
     public int getId() {
@@ -111,5 +115,21 @@ public class Promotion {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 }

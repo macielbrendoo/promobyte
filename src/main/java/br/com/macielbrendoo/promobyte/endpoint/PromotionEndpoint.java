@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotEmpty;
 
+@RestController
+@RequestMapping("promo")
 public class PromotionEndpoint {
     private final PromotionRepository promotionRepository;
 
@@ -19,8 +21,13 @@ public class PromotionEndpoint {
     }
 
     @GetMapping(path = "/list")
-    public ResponseEntity<?> listPromotionByApprovedStatus(@RequestBody @NotEmpty boolean approvedStatus) {
-        return new ResponseEntity<>(promotionRepository.findAllByApprovedStatus(approvedStatus), HttpStatus.OK);
+    public ResponseEntity<?> listPromotionByApprovedStatus(@RequestParam(required = false, defaultValue = "true") boolean approvedStatus, @RequestParam(required = false, defaultValue = "0") int ownerId) {
+        if(ownerId > 0) {
+            System.out.println("Procura por owner id");
+            return new ResponseEntity<>(promotionRepository.findAllByOwnerId(ownerId), HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(promotionRepository.findAllByApprovedStatus(approvedStatus), HttpStatus.OK);
+        }
     }
 
     @GetMapping(path = "/promotion/{id}")
@@ -28,7 +35,7 @@ public class PromotionEndpoint {
         return new ResponseEntity<>(promotionRepository.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/resgister")
+    @PostMapping(path = "/register")
     public ResponseEntity<?> createPromotion(@RequestBody @NotEmpty Promotion promotion) {
         if(promotionRepository.findOneByUrl(promotion.getUrl()).isPresent()){
             throw new PromotionAlreadyExistsException("Promoção já existe");
