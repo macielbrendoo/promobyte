@@ -20,6 +20,7 @@ public class PromotionEndpoint {
         this.promotionRepository = promotionRepository;
     }
 
+    @CrossOrigin
     @GetMapping(path = "/list")
     public ResponseEntity<?> listPromotionByApprovedStatus(@RequestParam(required = false, defaultValue = "true") boolean approvedStatus, @RequestParam(required = false, defaultValue = "0") int ownerId) {
         if(ownerId > 0) {
@@ -30,24 +31,28 @@ public class PromotionEndpoint {
         }
     }
 
-    @GetMapping(path = "/promotion/{id}")
+    @CrossOrigin
+    @GetMapping(path = "/{id}")
     public ResponseEntity<?> getPromotionByID(@PathVariable int id){
         return new ResponseEntity<>(promotionRepository.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/register")
+    @CrossOrigin
+    @PostMapping(path = "/create")
     public ResponseEntity<?> createPromotion(@RequestBody @NotEmpty Promotion promotion) {
-        if(promotionRepository.findOneByUrl(promotion.getUrl()).isPresent()){
-            throw new PromotionAlreadyExistsException("Promoção já existe");
-        }
+//        if(promotionRepository.findOneByUrl(promotion.getUrl()).isPresent()){
+//            throw new PromotionAlreadyExistsException("Promoção já existe");
+//        }
         return new ResponseEntity<>(promotionRepository.save(promotion), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PutMapping(path = "/update")
     public ResponseEntity<?> updatePromotion(@RequestBody Promotion promotion){
         return new ResponseEntity<>(promotionRepository.save(promotion), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<?> deletePromotion(@PathVariable int id){
         promotionRepository.deleteById(id);

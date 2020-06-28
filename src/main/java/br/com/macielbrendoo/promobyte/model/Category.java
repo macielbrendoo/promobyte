@@ -3,6 +3,7 @@ package br.com.macielbrendoo.promobyte.model;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -10,6 +11,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Category {
     @Id
+    @GeneratedValue
     private int id;
     private String category;
 

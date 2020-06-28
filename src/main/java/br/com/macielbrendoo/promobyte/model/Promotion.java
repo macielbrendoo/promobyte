@@ -2,10 +2,7 @@ package br.com.macielbrendoo.promobyte.model;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,6 +10,7 @@ import java.util.Date;
 @Entity
 public class Promotion {
     @Id
+    @GeneratedValue
     private int id;
 
     private boolean approvedStatus;
@@ -25,7 +23,7 @@ public class Promotion {
     private Date createAt;
     private int ownerId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private SubCategory subCategory;
 
     public Promotion() {
