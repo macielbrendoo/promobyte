@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface PromotionRepository extends CrudRepository<Promotion, Integer> {
     List<Promotion> findAllByApprovedStatus(boolean approvedStatus);
     Optional<Promotion> findOneByUrl(String url);
+    Optional<Promotion> findOneById(int id);
     List<Promotion> findAllByOwnerId(int ownerId);
 }

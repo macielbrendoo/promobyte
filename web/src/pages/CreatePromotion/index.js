@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../Navbar';
+import { useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -8,6 +9,8 @@ import './styles.css';
 
 
 function CreatePromotion() {
+    const history = useHistory();
+    const [alertMessage, setAlertMessage] = useState('');
     const [formData, setFormData] = useState({
         product: '',
         originalPrice: 0,
@@ -33,7 +36,7 @@ function CreatePromotion() {
             actualPrice,
             url,
             promotionCode,
-            expirationDate,
+            expirationDate,  //: Date.parse(expirationDate)
             createAt: '2020-06-25T00:00:00.000+0000',
             ownerId: 1,
             subCategory: {
@@ -46,12 +49,36 @@ function CreatePromotion() {
             }
         }
 
-        await api.post('/promo/create', data);
+        const response = await api.post('/promo/create', data).catch(() => {
+            setAlertMessage('erro')
+        });
+        response && response.status === 200 ? setAlertMessage('cadastrado') : setAlertMessage('erro')
+
+        setTimeout(() => {history.push('/')}, 1000);
     }
     return (
         <>
             <Navbar />
+
             <div className="container mt-3">
+                {alertMessage === 'cadastrado' ? (
+                    <div className="alert alert-success" role="alert">
+                        Promoção Cadastrada
+                    </div>)
+                    : ""
+                }
+                {alertMessage === 'erro' ? (
+                    <div className="alert alert-danger" role="alert">
+                        Ocorreu um erro durante a solicitação
+                    </div>)
+                    : ""
+                }
+                {alertMessage === 'deletado' ? (
+                    <div className="alert alert-warning" role="alert">
+                        Promoção Excluída
+                    </div>)
+                    : ""
+                }
                 <div className="row">
                     <div className="col-md-6 offset-md-3">
                         <h1 className="text-center">Cadastrar Promoção</h1>

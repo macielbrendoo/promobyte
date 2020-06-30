@@ -1,7 +1,7 @@
 .promo-container {
     max-width: 980px;
     margin: 0 auto;
-    padding: 50px 0;
+    padding: 20px 0;
   }
 .promo-container ul {
   list-style: none;
@@ -19,4 +19,15 @@
 }
 .form {
   max-width: 590px;
+}
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.buttons-approved {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
