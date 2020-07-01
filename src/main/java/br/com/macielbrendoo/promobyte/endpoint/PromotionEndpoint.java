@@ -1,5 +1,6 @@
 package br.com.macielbrendoo.promobyte.endpoint;
 
+import br.com.macielbrendoo.promobyte.error.PromotionAlreadyExistsException;
 import br.com.macielbrendoo.promobyte.model.Logs;
 import br.com.macielbrendoo.promobyte.model.NewPromotionLog;
 import br.com.macielbrendoo.promobyte.model.OldPromotionLog;
@@ -29,7 +30,6 @@ public class PromotionEndpoint {
     @GetMapping(path = "/list")
     public ResponseEntity<?> listPromotionByApprovedStatus(@RequestParam(required = false, defaultValue = "true") boolean approvedStatus, @RequestParam(required = false, defaultValue = "0") int ownerId) {
         if(ownerId > 0) {
-            System.out.println("Procura por owner id");
             return new ResponseEntity<>(promotionRepository.findAllByOwnerId(ownerId), HttpStatus.OK);
         }else {
             return new ResponseEntity<>(promotionRepository.findAllByApprovedStatus(approvedStatus), HttpStatus.OK);
@@ -45,16 +45,16 @@ public class PromotionEndpoint {
     @CrossOrigin
     @PostMapping(path = "/create")
     public ResponseEntity<?> createPromotion(@RequestBody @NotEmpty Promotion promotion) {
-//        if(promotionRepository.findOneByUrl(promotion.getUrl()).isPresent()){
-//            throw new PromotionAlreadyExistsException("Promoção já existe");
-//        }
+        if(promotionRepository.findOneByUrl(promotion.getUrl()).isPresent()){
+            throw new PromotionAlreadyExistsException("Promoção já existe");
+        }
         return new ResponseEntity<>(promotionRepository.save(promotion), HttpStatus.OK);
     }
 
     @CrossOrigin
     @PutMapping(path = "/update")
     public ResponseEntity<?> updatePromotion(@RequestBody Promotion promotion){
-        saveLog(promotion.getId(), promotion, "UPDATE");
+//        saveLog(promotion.getId(), promotion, "UPDATE");
 
         return new ResponseEntity<>(promotionRepository.save(promotion), HttpStatus.OK);
     }
@@ -62,7 +62,7 @@ public class PromotionEndpoint {
     @CrossOrigin
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deletePromotion(@PathVariable int id){
-        saveLog(id, null, "DELETE");
+//        saveLog(id, null, "DELETE");
 
         promotionRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);

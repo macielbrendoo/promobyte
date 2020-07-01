@@ -36,7 +36,7 @@ function CreatePromotion() {
             actualPrice,
             url,
             promotionCode,
-            expirationDate,  //: Date.parse(expirationDate)
+            expirationDate: Date.parse(expirationDate),
             createAt: '2020-06-25T00:00:00.000+0000',
             ownerId: 1,
             subCategory: {
@@ -54,7 +54,7 @@ function CreatePromotion() {
         });
         response && response.status === 200 ? setAlertMessage('cadastrado') : setAlertMessage('erro')
 
-        setTimeout(() => {history.push('/')}, 1000);
+        // setTimeout(() => {history.push('/')}, 1000);
     }
     return (
         <>
