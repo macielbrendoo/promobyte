@@ -1,0 +1,8 @@
+.table-content{
+    height:26px;
+    width:100px;
+    overflow:hidden;
+    text-overflow:ellipsis
+}
+input[type='checkbox'] { visibility: hidden; position: absolute; }
+input[type='checkbox']:checked + .table-content { height: auto; width: auto;}

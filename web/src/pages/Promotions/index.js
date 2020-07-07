@@ -27,14 +27,14 @@ function Promotions() {
                     {
                         promotions.map((item, key) => (
                             <li key={key}>
-                                <div className="card">
+                                <div className="card shadow">
                                     <div className="card-body">
                                         <h5 className="card-title">{item.product}</h5>
                                         <span className="card-subtitle mb-2 text-muted">{item.subCategory.subCategory} - </span>
                                         <span className="card-text original-price">Preço Original: {item.originalPrice}</span>
                                         <p className="card-text">Preço Atual: {item.actualPrice}</p>
                                         <p className="cad-text">Código: {item.promotionCode}</p>
-                                        <p>Expira em: {Date(item.expirationDate)}</p>
+                                        <p>Expira em: {item.expirationDate}</p>
                                         <a href={item.url} className="btn btn-outline-success">Acessar oferta!</a>
                                     </div>
                                 </div>

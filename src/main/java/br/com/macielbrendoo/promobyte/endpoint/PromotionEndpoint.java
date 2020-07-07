@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 import javax.validation.constraints.NotEmpty;
 
 @RestController
@@ -54,7 +56,7 @@ public class PromotionEndpoint {
     @CrossOrigin
     @PutMapping(path = "/update")
     public ResponseEntity<?> updatePromotion(@RequestBody Promotion promotion){
-//        saveLog(promotion.getId(), promotion, "UPDATE");
+        saveLog(promotion.getId(), promotion, "UPDATE");
 
         return new ResponseEntity<>(promotionRepository.save(promotion), HttpStatus.OK);
     }
@@ -62,9 +64,16 @@ public class PromotionEndpoint {
     @CrossOrigin
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deletePromotion(@PathVariable int id){
-//        saveLog(id, null, "DELETE");
+        saveLog(id, null, "DELETE");
 
         promotionRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping(path = "/cleanPromotions")
+    public ResponseEntity<?> cleanPromotion() {
+        promotionRepository.deletaPromocao();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -73,10 +82,10 @@ public class PromotionEndpoint {
         log.setOperation(operation);
 
         Promotion oldPromotion = promotionRepository.findById(id).get();
-        log.setOldPromotionLog(new OldPromotionLog(oldPromotion.getId(), oldPromotion.getSubCategory(), oldPromotion.isApprovedStatus(), oldPromotion.getProduct(), oldPromotion.getOriginalPrice(), oldPromotion.getActualPrice(), oldPromotion.getUrl(), oldPromotion.getPromotionCode(), oldPromotion.getExpirationDate(), oldPromotion.getCreateAt(), oldPromotion.getOwnerId()));
+        log.setOldPromotionLog(new OldPromotionLog(oldPromotion.getId(), oldPromotion.isApprovedStatus(), oldPromotion.getProduct(), oldPromotion.getOriginalPrice(), oldPromotion.getActualPrice(), oldPromotion.getUrl(), oldPromotion.getPromotionCode(), oldPromotion.getExpirationDate(), oldPromotion.getCreateAt(), oldPromotion.getOwnerId(), oldPromotion.getSubCategory()));
 
         if("UPDATE".equals(operation)) {
-            log.setNewPromotionLog(new NewPromotionLog(promotion.getId(), promotion.getSubCategory(), promotion.isApprovedStatus(), promotion.getProduct(), promotion.getOriginalPrice(), promotion.getActualPrice(), promotion.getUrl(), promotion.getPromotionCode(), promotion.getExpirationDate(), promotion.getCreateAt(), promotion.getOwnerId()));
+            log.setNewPromotionLog(new NewPromotionLog(promotion.getId(), promotion.isApprovedStatus(), promotion.getProduct(), promotion.getOriginalPrice(), promotion.getActualPrice(), promotion.getUrl(), promotion.getPromotionCode(), promotion.getExpirationDate(), promotion.getCreateAt(), promotion.getOwnerId(), promotion.getSubCategory()));
         }
 
         logRepository.save(log);

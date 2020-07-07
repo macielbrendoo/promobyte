@@ -111,7 +111,7 @@ function AdminManagePromotions() {
                     {
                         promotions.map((item, key) => (
                             <li key={key} className="mt-3">
-                                <div className="card">
+                                <div className="card shadow">
                                     <div className="card-body">
                                         <h5 className="card-title">{item.product}</h5>
                                         <span className="card-subtitle mb-2 text-muted">{item.subCategory.subCategory} - </span>

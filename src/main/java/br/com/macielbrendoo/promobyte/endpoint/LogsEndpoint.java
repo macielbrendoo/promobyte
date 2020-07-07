@@ -4,6 +4,7 @@ import br.com.macielbrendoo.promobyte.repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class LogsEndpoint {
         this.logRepository = logRepository;
     }
 
-
+    @CrossOrigin
     @GetMapping("/")
     public ResponseEntity<?> getLogs() {
         return new ResponseEntity<>(logRepository.findAll() ,HttpStatus.OK);

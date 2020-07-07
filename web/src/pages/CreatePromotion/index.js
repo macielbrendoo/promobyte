@@ -54,7 +54,7 @@ function CreatePromotion() {
         });
         response && response.status === 200 ? setAlertMessage('cadastrado') : setAlertMessage('erro')
 
-        // setTimeout(() => {history.push('/')}, 1000);
+        setTimeout(() => {history.push('/')}, 1000);
     }
     return (
         <>
@@ -82,7 +82,7 @@ function CreatePromotion() {
                 <div className="row">
                     <div className="col-md-6 offset-md-3">
                         <h1 className="text-center">Cadastrar Promoção</h1>
-                        <div className="card">
+                        <div className="card shadow">
                             <form onSubmit={handleSubmit} className="form">
                                 <div className="form-group">
                                     <label htmlFor="product">Produto</label>

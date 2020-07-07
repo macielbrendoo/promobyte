@@ -10,7 +10,10 @@ import java.util.Date;
 @Entity
 public class NewPromotionLog {
     @Id
+    @GeneratedValue
     private int id;
+
+    private int newId;
 
     private boolean approvedStatus;
     private String product;
@@ -28,9 +31,8 @@ public class NewPromotionLog {
     public NewPromotionLog() {
     }
 
-    public NewPromotionLog(int id, SubCategory subCategory, boolean approvedStatus, String product, BigDecimal originalPrice, BigDecimal actualPrice, String url, String promotionCode, Date expirationDate, Date createAt, int ownerId) {
-        this.id = id;
-        this.subCategory = subCategory;
+    public NewPromotionLog(int newId, boolean approvedStatus, String product, BigDecimal originalPrice, BigDecimal actualPrice, String url, String promotionCode, Date expirationDate, Date createAt, int ownerId, SubCategory subCategory) {
+        this.newId = newId;
         this.approvedStatus = approvedStatus;
         this.product = product;
         this.originalPrice = originalPrice;
@@ -40,6 +42,7 @@ public class NewPromotionLog {
         this.expirationDate = expirationDate;
         this.createAt = createAt;
         this.ownerId = ownerId;
+        this.subCategory = subCategory;
     }
 
     public int getId() {
@@ -48,6 +51,14 @@ public class NewPromotionLog {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNewId() {
+        return newId;
+    }
+
+    public void setNewId(int newId) {
+        this.newId = newId;
     }
 
     public SubCategory getSubCategory() {

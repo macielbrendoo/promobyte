@@ -10,7 +10,10 @@ import java.util.Date;
 @Entity
 public class OldPromotionLog {
     @Id
+    @GeneratedValue
     private int id;
+
+    private int oldId;
 
     private boolean approvedStatus;
     private String product;
@@ -28,9 +31,8 @@ public class OldPromotionLog {
     public OldPromotionLog() {
     }
 
-    public OldPromotionLog(int id, SubCategory subCategory, boolean approvedStatus, String product, BigDecimal originalPrice, BigDecimal actualPrice, String url, String promotionCode, Date expirationDate, Date createAt, int ownerId) {
-        this.id = id;
-        this.subCategory = subCategory;
+    public OldPromotionLog(int oldId, boolean approvedStatus, String product, BigDecimal originalPrice, BigDecimal actualPrice, String url, String promotionCode, Date expirationDate, Date createAt, int ownerId, SubCategory subCategory) {
+        this.oldId = oldId;
         this.approvedStatus = approvedStatus;
         this.product = product;
         this.originalPrice = originalPrice;
@@ -40,6 +42,15 @@ public class OldPromotionLog {
         this.expirationDate = expirationDate;
         this.createAt = createAt;
         this.ownerId = ownerId;
+        this.subCategory = subCategory;
+    }
+
+    public int getOldId() {
+        return oldId;
+    }
+
+    public void setOldId(int oldId) {
+        this.oldId = oldId;
     }
 
     public int getId() {
